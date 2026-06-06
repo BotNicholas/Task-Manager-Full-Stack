@@ -1,0 +1,12 @@
+version: '3'
+
+services:
+  postgresql:
+    container_name: task_manager_db
+    image: bitnami/postgresql:latest
+    ports:
+      - 54321:5432
+    environment:
+      POSTGRESQL_DATABASE: tasks
+      POSTGRESQL_USERNAME: root
+      POSTGRESQL_PASSWORD: password

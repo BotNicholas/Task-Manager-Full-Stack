@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task Manager</title>
+    <link rel="icon" href="../images/favicon.ico">
+    <link rel="stylesheet" href="./style.css">
+</head>
+<body class="non-scrollable">
+<div id="app">
+    <main id="app-layout" class="sidebar-hidden">
+        <aside id="app-sidebar">
+            <div id="app-sidebar-header">
+                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="#000000" viewBox="0 0 256 256"><path d="M176,232a8,8,0,0,1-8,8H88a8,8,0,0,1,0-16h80A8,8,0,0,1,176,232Zm40-128a87.55,87.55,0,0,1-33.64,69.21A16.24,16.24,0,0,0,176,186v6a16,16,0,0,1-16,16H96a16,16,0,0,1-16-16v-6a16,16,0,0,0-6.23-12.66A87.59,87.59,0,0,1,40,104.5C39.74,56.83,78.26,17.15,125.88,16A88,88,0,0,1,216,104Zm-16,0a72,72,0,0,0-73.74-72c-39,.92-70.47,33.39-70.26,72.39a71.64,71.64,0,0,0,27.64,56.3h0A32,32,0,0,1,96,186v6h24V147.31L90.34,117.66a8,8,0,0,1,11.32-11.32L128,132.69l26.34-26.35a8,8,0,0,1,11.32,11.32L136,147.31V192h24v-6a32.12,32.12,0,0,1,12.47-25.35A71.65,71.65,0,0,0,200,104Z"></path></svg>
+                <h2>Task Manager</h2>
+            </div>
+            <div id="menu">
+                <button class="menu-item" data-href="/">Dashboard</button>
+                <button class="menu-item active" data-href="/tasks/" disabled>Tasks</button>
+                <button class="menu-item" data-href="/about/">About</button>
+            </div>
+        </aside>
+        <header id="app-header">
+            <button id="sidebar-close-btn">
+                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="#000000" viewBox="0 0 256 256"><path d="M224,128a8,8,0,0,1-8,8H40a8,8,0,0,1,0-16H216A8,8,0,0,1,224,128ZM40,72H216a8,8,0,0,0,0-16H40a8,8,0,0,0,0,16ZM216,184H40a8,8,0,0,0,0,16H216a8,8,0,0,0,0-16Z"></path></svg>
+            </button>
+            <span id="path">/Tasks</span>
+        </header>
+        <main id="app-content">
+            <div id="cover">
+                <div class="board">
+                    <div id="todo" class="col">
+                        <div class="col-header">
+                            <h1>To Do</h1>
+                            <hr/>
+                        </div>
+                        <div class="tasks"></div>
+                    </div>
+                    <div id="inProgress" class="col">
+                        <div class="col-header">
+                            <h1>In Progress</h1>
+                            <hr/>
+                        </div>
+                        <div class="tasks"></div>
+                    </div>
+                    <div id="done" class="col">
+                        <div class="col-header">
+                            <h1>Done</h1>
+                            <hr/>
+                        </div>
+                        <div class="tasks"></div>
+                    </div>
+                    <div id="rejected" class="col">
+                        <div class="col-header">
+                            <h1>Rejected</h1>
+                            <hr/>
+                        </div>
+                        <div class="tasks"></div>
+                    </div>
+                    <button id="open-add-task-modal-btn">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="#000000" viewBox="0 0 256 256"><path d="M224,128a8,8,0,0,1-8,8H136v80a8,8,0,0,1-16,0V136H40a8,8,0,0,1,0-16h80V40a8,8,0,0,1,16,0v80h80A8,8,0,0,1,224,128Z"></path></svg>
+                    </button>
+                </div>
+            </div>
+        </main>
+    </main>
+
+    <div class="ticket-details-modal hidden">
+        <div class="ticket-details"></div>
+    </div>
+    <div class="ticket-details-edit-modal hidden">
+        <form id="ticketDetailsEditForm"></form>
+    </div>
+    <div class="ticket-add-modal hidden">
+        <form id="ticketAddForm">
+            <h2>Add new ticket</h2>
+            <section class="data">
+                <div class="field-group">
+                    <label for="create-title">Title:</label>
+                    <input type="text" name="title" id="create-title" placeholder="Ticket Title" required>
+                </div>
+                <div class="field-group">
+                    <label for="create-description">Description:</label>
+                    <textarea name="description" id="create-description" placeholder="Ticket Description"></textarea>
+                </div>
+                <div class="field-group">
+                    <label for="create-status">Status:</label>
+                    <select name="status" id="create-status" required>
+                        <option value="" disabled selected hidden>Choose the status</option>
+                        <option value="todo">To Do</option>
+                        <option value="inProgress">In Progress</option>
+                        <option value="done">Done</option>
+                        <option value="rejected">Rejected</option>
+                    </select>
+                </div>
+            </section>
+            <section class="buttons">
+                <button class="cancel-button" type="button">Cancel</button>
+                <button class="save-button" type="submit">Save</button>
+            </section>
+        </form>
+    </div>
+    <div class="ticket-delete-modal hidden">
+        <form id="ticketDeleteForm">
+            <h2>Are you sure?</h2>
+            <p>The ticket is going to be erased forever!</p>
+            <section class="buttons">
+                <button class="cancel-button" type="button">Cancel</button>
+                <button class="save-button" type="submit">Delete</button>
+            </section>
+        </form>
+    </div>
+</div>
+<script src="../config.js"></script>
+<script src="./app.js"></script>
+</body>
+</html>

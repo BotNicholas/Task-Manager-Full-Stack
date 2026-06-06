@@ -1,0 +1,739 @@
+body {
+    margin: 0;
+    font-family: Verdana, sans-serif;
+}
+
+.non-scrollable {
+    overflow: hidden;
+}
+
+#app {
+    width: 100vw;
+    height: 100vh;
+    position: relative;
+}
+
+#app-layout {
+    width: 100vw;
+    height: 100vh;
+    display: grid;
+    grid-template-columns: 300px 1fr;
+    grid-template-rows: 47px 1fr;
+    transition: grid-template-columns 500ms;
+    background-color: #323135;
+}
+#app-layout.sidebar-hidden {
+    grid-template-columns: 0 1fr;
+}
+
+#app-header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: start;
+    gap: 10px;
+    grid-row-start: 1;
+    grid-column-start: 2;
+    background-color: rgba(56, 54, 71, 0.7);
+}
+
+#app-sidebar-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    height: 48px;
+    width: 100%;
+    /*margin-bottom: 10px;*/
+}
+
+#app-sidebar-header svg {
+    width: 30px;
+    height: 30px;
+    fill: yellow;
+    stroke: yellow;
+    transition: all 300ms;
+    stroke-width: 5px;
+}
+
+#app-sidebar-header:hover svg {
+    stroke-width: 15px;
+}
+
+#menu {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.menu-item {
+    width: 100%;
+    height: 30px;
+    background-color: transparent;
+    border: 1px solid transparent;
+    transition: all 300ms;
+    padding: 0 10px;
+    color: white;
+    cursor: pointer;
+}
+
+.menu-item.active {
+    color: #f4f496;
+    cursor: default;
+}
+
+.menu-item:not(.active):hover {
+    background-color: rgba(75, 72, 96, 0.7);
+    border: 1px solid rgba(119, 115, 152, 0.7);
+    color: yellow;
+}
+
+#app-sidebar {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow: hidden;
+    grid-row: 1 / span 2;
+    background-color: rgba(56, 54, 71, 0.7);
+}
+
+#path {
+    color: rgba(255, 255, 255, 0.5);
+    font-weight: bold;
+    cursor: default;
+}
+
+#app-sidebar h2 {
+    margin: 0;
+    font-size: 18pt;
+    color: white;
+    text-wrap: nowrap;
+}
+
+#app-content {
+    background-image: url(https://thumb.ac-illust.com/92/92c00f28aa29ce4d92fd65e59a48b24d_t.jpeg);
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: 100% 100%;
+}
+
+#sidebar-close-btn {
+    margin-top: 2px;
+    background-color: transparent;
+    border: none;
+}
+
+#sidebar-close-btn svg {
+    width: 24px;
+    height: 24px;
+    fill: white;
+    transition: all 200ms;
+}
+
+#sidebar-close-btn svg:hover {
+    stroke: white;
+    stroke-width: 20px;
+}
+
+#app-content {
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+@keyframes appear {
+    0% {opacity: 0;}
+    100% {opacity: 1;}
+}
+
+@keyframes disappear {
+    0% {opacity: 1;}
+    100% {opacity: 0;}
+}
+
+/*#todo {*/
+/*    background-color: red;*/
+/*}*/
+
+/*#in-progress {*/
+/*    background-color: orange;*/
+/*}*/
+
+/*#done {*/
+/*    background-color: yellow;*/
+/*}*/
+
+/*#restart {*/
+/*    background-color: green;*/
+/*}*/
+
+.board {
+    width: 90vw;
+    height: 80vh;
+    background-color: rgba(255, 255, 255, 0.9);
+    color: black;
+    border-radius: 20px;
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 20px;
+    overflow: hidden;
+    animation: 600ms appear;
+    padding: 5px 20px 20px;
+    position: relative;
+}
+
+.col-header h1 {
+    text-align: center;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.col-header hr {
+    width: 50%;
+    border: 1px solid black;
+}
+
+.task {
+    height: 80px;
+    background-color: white;
+    display: flex;
+    flex-shrink: 0;
+    border-radius: 10px;
+    transition: all 500ms;
+    cursor: pointer;
+    overflow: hidden;
+    min-width: 0;
+}
+
+.task:hover {
+    box-shadow: 0 0 5px gray;
+}
+
+.task .data {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    min-width: 0;
+    flex: 1;
+    overflow: hidden;
+}
+
+.task .data span {
+    display: block;
+    max-width: 100%;
+    color: rgb(123, 122, 122);
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.task .label {
+    width: 10px;
+}
+
+.task h2 {
+    margin: 5px 0;
+    font-size: 15pt;
+}
+
+.task span {
+    margin: 0;
+    font-size: 10pt;
+    color: #686868;
+}
+
+.col {
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+}
+
+.tasks {
+    overflow-y: auto;
+    height: 100%;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 5px;
+    background-color: transparent;
+}
+
+.loading {
+    text-align: center;
+    font-weight: bold;
+    margin: 10px 0 20px;
+}
+
+.emptystate {
+    text-align: center;
+    font-weight: bold;
+    margin: 10px 0 20px;
+}
+
+.ticket-details-modal {
+    position: absolute;
+    top: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(43, 43, 43, 0.71);
+    backdrop-filter: blur(20px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.ticket-details-modal .ticket-details {
+    width: 80vw;
+    max-height: 80vh;
+    min-height: 50vh;
+    height: min-content;
+    background-color: rgba(255, 255, 255, 0.9);
+    border-radius: 20px;
+    color: black;
+    padding: 20px 20px 100px;
+    position: relative;
+}
+
+.ticket-details-modal .ticket-details h4 {
+    font-size: 15px;
+    width: 100%;
+    color: dimgray;
+}
+
+.ticket-details-modal .ticket-details h1 {
+    width: 100%;
+    text-align: center;
+}
+
+.ticket-details-modal .ticket-details pre {
+    max-height: 50vh;
+    height: min-content;
+    overflow-y: scroll;
+}
+
+.ticket-details-modal .ticket-details #createdAt {
+    font-size: 12px;
+    text-align: right;
+    color: dimgray;
+    padding-right: 25px;
+}
+
+.hidden {
+    display: none !important;
+}
+
+.action-buttons {
+    padding-right: 10px;
+    position: absolute;
+    right: 20px;
+    top: 30px;
+    display: flex;
+    flex-direction: row;
+    gap: 15px;
+}
+
+#open-edit-ticket-modal-btn {
+    font-size: 12pt;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 2px 10px 2px 5px;
+    border-radius: 10px;
+    background-color: #f8e9c9;
+    border: 1px solid #ffd17b;
+    color: #ffa600;
+    transition: all 200ms;
+}
+
+#open-edit-ticket-modal-btn:hover {
+    background-color: #fdf7e5;
+}
+
+#open-delete-ticket-modal-btn {
+    font-size: 12pt;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 2px 10px 2px 5px;
+    border-radius: 10px;
+    background-color: #f8c9ce;
+    border: 1px solid #ff818f;
+    color: #ff364e;
+    transition: all 200ms;
+}
+
+#open-delete-ticket-modal-btn:hover {
+    background-color: #fbdee1;
+}
+
+.ticket-details-edit-modal {
+    position: absolute;
+    top: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(43, 43, 43, 0.71);
+    backdrop-filter: blur(20px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.ticket-details-edit-modal #ticketDetailsEditForm {
+    width: min-content;
+    max-height: 60vh;
+    min-height: 20vh;
+    height: min-content;
+    background-color: rgba(255, 255, 255, 0.9);
+    overflow-y: scroll;
+    border-radius: 20px;
+    color: black;
+    padding: 20px 20px 100px;
+}
+
+.ticket-details-edit-modal #ticketDetailsEditForm h2 {
+    text-align: center;
+}
+
+/*---*/
+
+.ticket-details-edit-modal #ticketDetailsEditForm .data {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-items: center;
+}
+
+.ticket-details-edit-modal #ticketDetailsEditForm .data label {
+    color: dimgray;
+    font-weight: bold;
+}
+
+.field-group {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    width: 90%;
+}
+
+.ticket-details-edit-modal #ticketDetailsEditForm input {
+    height: 20px;
+    border-radius: 10px;
+    padding: 5px;
+    border: 1px solid #a8a8a8;
+}
+
+.ticket-details-edit-modal #ticketDetailsEditForm input:user-invalid {
+    background-color: #fbeaea;
+    border: 1px solid #fb7b7b;
+    color: #ff0000;
+}
+
+.ticket-details-edit-modal #ticketDetailsEditForm textarea {
+    height: 200px;
+    resize: vertical;
+    border-radius: 10px;
+    padding: 5px;
+    border: 1px solid #a8a8a8;
+}
+
+.ticket-details-edit-modal #ticketDetailsEditForm select {
+    border-radius: 10px;
+    padding: 8px;
+    border: 1px solid #a8a8a8;
+}
+
+.ticket-details-edit-modal #ticketDetailsEditForm select:user-invalid {
+    background-color: #fbeaea;
+    border: 1px solid #fb7b7b;
+    color: #ff0000;
+}
+
+.ticket-details-edit-modal #ticketDetailsEditForm .buttons {
+    margin-top: 50px;
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+.ticket-details-edit-modal #ticketDetailsEditForm button {
+    font-size: 13pt;
+    padding: 5px 10px;
+    min-width: 150px;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.ticket-details-edit-modal #ticketDetailsEditForm .cancel-button {
+    background-color: #f3f3f3;
+    border: 1px solid #3a3a3a;
+    transition: all 200ms;
+}
+
+.ticket-details-edit-modal #ticketDetailsEditForm .cancel-button:hover {
+    /*font-weight: bold;*/
+    box-shadow: 0 0 2px rgba(0, 0, 0, 0.7);
+    transition: all 200ms;
+}
+
+.ticket-details-edit-modal #ticketDetailsEditForm .save-button {
+    background-color: #6b7eca;
+    border: 1px solid #5b74da;
+    color: white;
+    transition: all 200ms;
+}
+
+.ticket-details-edit-modal #ticketDetailsEditForm .save-button:hover {
+    /*font-weight: bold;*/
+    box-shadow: 0 0 3px #5b74da;
+    transition: all 200ms;
+}
+
+
+
+
+#open-add-task-modal-btn {
+    width: 35px;
+    height: 35px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 100%;
+    background-color: white;
+    border: 1px solid black;
+    box-shadow: 1px 1px 0 black;
+    transition: all 100ms;
+    cursor: pointer;
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+}
+
+#open-add-task-modal-btn:hover {
+    box-shadow: 0 0 0 transparent;
+    transform: translate(1px, 1px);
+}
+
+
+.ticket-add-modal {
+    position: absolute;
+    top: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(43, 43, 43, 0.71);
+    backdrop-filter: blur(20px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.ticket-add-modal #ticketAddForm {
+    width: min-content;
+    max-height: 60vh;
+    min-height: 20vh;
+    height: min-content;
+    background-color: rgba(255, 255, 255, 0.9);
+    border-radius: 20px;
+    color: black;
+    padding: 20px 20px 100px;
+    overflow: hidden;
+    overflow-y: scroll;
+    position: relative;
+    display: grid;
+    grid-template-rows: 1fr 3fr 1fr;
+}
+
+.ticket-add-modal #ticketAddForm h2 {
+    text-align: center;
+}
+
+/*---*/
+
+.ticket-add-modal #ticketAddForm .data {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-items: center;
+}
+
+.ticket-add-modal #ticketAddForm .data label {
+    color: dimgray;
+    font-weight: bold;
+}
+
+.field-group {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    width: 90%;
+}
+
+.ticket-add-modal #ticketAddForm input {
+    height: 20px;
+    border-radius: 10px;
+    padding: 5px;
+    border: 1px solid #a8a8a8;
+}
+
+.ticket-add-modal #ticketAddForm input:user-invalid {
+    background-color: #fbeaea;
+    border: 1px solid #fb7b7b;
+    color: #ff0000;
+}
+
+.ticket-add-modal #ticketAddForm textarea {
+    height: 200px;
+    resize: vertical;
+    border-radius: 10px;
+    padding: 5px;
+    border: 1px solid #a8a8a8;
+}
+
+.ticket-add-modal #ticketAddForm select {
+    border-radius: 10px;
+    padding: 8px;
+    border: 1px solid #a8a8a8;
+}
+
+.ticket-add-modal #ticketAddForm select:user-invalid {
+    background-color: #fbeaea;
+    border: 1px solid #fb7b7b;
+    color: #ff0000;
+}
+
+.ticket-add-modal #ticketAddForm .buttons {
+    margin-top: 50px;
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+.ticket-add-modal #ticketAddForm button {
+    font-size: 13pt;
+    padding: 5px 10px;
+    min-width: 150px;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.ticket-add-modal #ticketAddForm .cancel-button {
+    background-color: #f3f3f3;
+    border: 1px solid #3a3a3a;
+    transition: all 200ms;
+}
+
+.ticket-add-modal #ticketAddForm .cancel-button:hover {
+    /*font-weight: bold;*/
+    box-shadow: 0 0 2px rgba(0, 0, 0, 0.7);
+    transition: all 200ms;
+}
+
+.ticket-add-modal #ticketAddForm .save-button {
+    background-color: #6b7eca;
+    border: 1px solid #5b74da;
+    color: white;
+    transition: all 200ms;
+}
+
+.ticket-add-modal #ticketAddForm .save-button:hover {
+    /*font-weight: bold;*/
+    box-shadow: 0 0 3px #5b74da;
+    transition: all 200ms;
+}
+
+
+
+
+
+
+
+.ticket-delete-modal {
+    position: absolute;
+    top: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(43, 43, 43, 0.71);
+    backdrop-filter: blur(20px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.ticket-delete-modal #ticketDeleteForm {
+    width: max-content;
+    max-height: 14vh;
+    min-height: 10vh;
+    height: max-content;
+    background-color: rgba(255, 255, 255, 0.9);
+    border-radius: 20px;
+    color: black;
+    padding: 20px 20px 100px;
+    overflow: hidden;
+}
+
+.ticket-delete-modal #ticketDeleteForm h2 {
+    text-align: center;
+}
+
+.ticket-delete-modal #ticketDeleteForm  {
+    text-align: center;
+}
+
+
+
+
+
+.ticket-delete-modal #ticketDeleteForm .buttons {
+    margin-top: 50px;
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+.ticket-delete-modal #ticketDeleteForm button {
+    font-size: 13pt;
+    padding: 5px 10px;
+    min-width: 150px;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.ticket-delete-modal #ticketDeleteForm .cancel-button {
+    background-color: #f3f3f3;
+    border: 1px solid #3a3a3a;
+    transition: all 200ms;
+}
+
+.ticket-delete-modal #ticketDeleteForm .cancel-button:hover {
+    /*font-weight: bold;*/
+    box-shadow: 0 0 2px rgba(0, 0, 0, 0.7);
+    transition: all 200ms;
+}
+
+.ticket-delete-modal #ticketDeleteForm .save-button {
+    background-color: #ca6b6b;
+    border: 1px solid #da5b5b;
+    color: white;
+    transition: all 200ms;
+}
+
+.ticket-delete-modal #ticketDeleteForm .save-button:hover {
+    /*font-weight: bold;*/
+    box-shadow: 0 0 3px #da5b5b;
+    transition: all 200ms;
+}

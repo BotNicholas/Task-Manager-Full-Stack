@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task Manager</title>
+    <link rel="icon" href="../images/favicon.ico">
+    <link rel="stylesheet" href="./style.css">
+</head>
+<body class="non-scrollable">
+<div id="app">
+    <main id="app-layout" class="sidebar-hidden">
+        <aside id="app-sidebar">
+            <div id="app-sidebar-header">
+                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="#000000" viewBox="0 0 256 256"><path d="M176,232a8,8,0,0,1-8,8H88a8,8,0,0,1,0-16h80A8,8,0,0,1,176,232Zm40-128a87.55,87.55,0,0,1-33.64,69.21A16.24,16.24,0,0,0,176,186v6a16,16,0,0,1-16,16H96a16,16,0,0,1-16-16v-6a16,16,0,0,0-6.23-12.66A87.59,87.59,0,0,1,40,104.5C39.74,56.83,78.26,17.15,125.88,16A88,88,0,0,1,216,104Zm-16,0a72,72,0,0,0-73.74-72c-39,.92-70.47,33.39-70.26,72.39a71.64,71.64,0,0,0,27.64,56.3h0A32,32,0,0,1,96,186v6h24V147.31L90.34,117.66a8,8,0,0,1,11.32-11.32L128,132.69l26.34-26.35a8,8,0,0,1,11.32,11.32L136,147.31V192h24v-6a32.12,32.12,0,0,1,12.47-25.35A71.65,71.65,0,0,0,200,104Z"></path></svg>
+                <h2>Task Manager</h2>
+            </div>
+            <div id="menu">
+                <button class="menu-item" data-href="/">Dashboard</button>
+                <button class="menu-item" data-href="/tasks/">Tasks</button>
+                <button class="menu-item active" data-href="/about/" disabled>About</button>
+            </div>
+        </aside>
+        <header id="app-header">
+            <button id="sidebar-close-btn">
+                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="#000000" viewBox="0 0 256 256"><path d="M224,128a8,8,0,0,1-8,8H40a8,8,0,0,1,0-16H216A8,8,0,0,1,224,128ZM40,72H216a8,8,0,0,0,0-16H40a8,8,0,0,0,0,16ZM216,184H40a8,8,0,0,0,0,16H216a8,8,0,0,0,0-16Z"></path></svg>
+            </button>
+            <span id="path">/About</span>
+        </header>
+        <main id="app-content">
+            <div id="cover">
+                <div id="author-info">
+                    <div class="header">
+                        <img src="https://avatars.githubusercontent.com/u/112950874?v=4" alt="Avatar" class="avatar">
+                        <h1>Nick Botan</h1>
+                        <h2>Java Full-Stack Developer</h2>
+                    </div>
+                    <div class="content">
+                        <p>Hi! My name is Nicholas Botsan, and I am a Java Full-Stack Developer from Moldova.</p>
+                        <p>I specialize in backend development using Java and Spring ecosystem technologies. I have commercial experience developing enterprise applications, REST APIs, microservices, and integrations with external systems.</p>
+                        <p>Currently, I work with modern technologies such as Java 17, Spring Boot, Spring Security, Hibernate, PostgreSQL, RabbitMQ, Docker, and AWS-related services. I also have frontend experience with Angular, JavaScript, TypeScript, HTML, and CSS.</p>
+                        <h3>Experience</h3>
+                        <ul>
+                            <li>Java Full-Stack Developer at Cedacri International (ION Group)</li>
+                            <li>Java Full-Stack Developer at Herensys (working on projects for Quant)</li>
+                        </ul>
+                        <h3>Technical Skills</h3>
+                        <h4>Backend</h4>
+                        <ul>
+                            <li>Java</li>
+                            <li>Spring Boot</li>
+                            <li>Spring Security</li>
+                            <li>Spring Data JPA</li>
+                            <li>Hibernate</li>
+                            <li>REST APIs</li>
+                            <li>Kafka</li>
+                            <li>RabbitMQ</li>
+                            <li>OAuth2 / JWT</li>
+                        </ul>
+                        <h4>Database</h4>
+                        <ul>
+                            <li>PostgreSQL</li>
+                            <li>MySQL</li>
+                            <li>SQL</li>
+                        </ul>
+                        <h4>Frontend</h4>
+                        <ul>
+                            <li>React</li>
+                            <li>Angular</li>
+                            <li>TypeScript</li>
+                            <li>JavaScript</li>
+                            <li>HTML</li>
+                            <li>CSS</li>
+                        </ul>
+                        <h3>Education</h3>
+                        <p>Studied at Centrul de Excelenta in Informatica si Tehnologii Informationale (CEITI) and currently studying Computer Science at the State University of Moldova (USM).</p>
+                        <h3>About Me</h3>
+                        <p>I enjoy building reliable backend systems, learning new technologies, and continuously improving my software engineering skills. I am particularly interested in cloud technologies, distributed systems, and modern web application development.</p>
+                        <h3>Contacts</h3>
+                        <p>Telegram: <a href="https://t.me/BotNicholas" target="_blank">@BotNicholas</a></p>
+                        <p>Email: <a href="mailto:[botannicolai22@gmail.com]" target="_blank">botannicolai22@gmail.com</a></p>
+                        <p>Email: <a href="https://github.com/BotNicholas" target="_blank">BotNicholas</a></p>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </main>
+</div>
+<script src="../config.js"></script>
+<script src="./app.js"></script>
+</body>
+</html>
