@@ -1,17 +1,15 @@
 package org.botnicholas.projects.taskmanager.repositories.specifications;
 
-import jakarta.persistence.criteria.CriteriaBuilder;
-import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Predicate;
-import jakarta.persistence.criteria.Root;
+import lombok.experimental.UtilityClass;
 import org.botnicholas.projects.taskmanager.enums.TaskStatus;
 import org.botnicholas.projects.taskmanager.repositories.entities.TaskEntity;
-import org.jspecify.annotations.Nullable;
 import org.springframework.data.jpa.domain.Specification;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@UtilityClass
 public class TaskSpecification {
     private static final String STATUS_FIELD = "status";
 

@@ -7,16 +7,10 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
 import java.util.UUID;
 
 @Repository
 public interface TasksRepository extends JpaRepository<TaskEntity, UUID>, JpaSpecificationExecutor<TaskEntity> {
-//    @Query("""
-//        SELECT t.status as status, count(t) as count
-//        FROM TaskEntity t
-//        GROUP BY t.status
-//    """)
     @Query("""
         SELECT count(t) as total,
                count(t) FILTER (WHERE t.status = 'TO_DO') as todo,
@@ -25,5 +19,5 @@ public interface TasksRepository extends JpaRepository<TaskEntity, UUID>, JpaSpe
                count(t) FILTER (WHERE t.status = 'REJECTED') as rejected
         FROM TaskEntity t
     """)
-    public TaskStats getTaskStats();
+    TaskStats getTaskStats();
 }

@@ -1,12 +1,8 @@
+// General Section
+
 const sidebarCloseBtn = document.getElementById("sidebar-close-btn");
 const layout = document.getElementById("app-layout");
 const menuItems = document.querySelectorAll(".menu-item");
-const content = document.getElementById("app-content");
-
-// const cover = document.createElement("div");
-// cover.id = "cover";
-// content.innerHTML = "";
-// content.append(cover);
 
 menuItems.forEach((menuItem) => {
   menuItem.addEventListener("click", () => {

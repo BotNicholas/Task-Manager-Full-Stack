@@ -1,25 +1,8 @@
+// General Section
+
 const sidebarCloseBtn = document.getElementById("sidebar-close-btn");
 const layout = document.getElementById("app-layout");
 const menuItems = document.querySelectorAll(".menu-item");
-const content = document.getElementById("app-content");
-
-// window.addEventListener("resize", (e) => {
-//   console.log(todo.clientHeight, todoTasks.clientHeight)
-//   if (todo.clientHeight > content.clientHeight) {
-//     alert("Update all tasks - fetch")
-//   }
-// })
-
-// content.style.backgroundImage = `url(https://thumb.ac-illust.com/92/92c00f28aa29ce4d92fd65e59a48b24d_t.jpeg)`;
-// content.style.backgroundRepeat = "no-repeat";
-// content.style.backgroundAttachment = "fixed";
-// content.style.backgroundSize = "100% 100%";
-// content.style.backgroundSize = "100% 100%";
-
-// const cover = document.createElement("div");
-// cover.id = "cover";
-// content.innerHTML = "";
-// content.append(cover);
 
 menuItems.forEach((menuItem) => {
   menuItem.addEventListener("click", () => {
@@ -35,9 +18,9 @@ sidebarCloseBtn.addEventListener("click", () => {
   }
 })
 
+// Tasks Board Section
 
 const SIZE = 200
-
 
 let draggingItem = undefined;
 
@@ -90,40 +73,31 @@ const tasks = {
 tasks.todo.container.addEventListener("scroll", (e) => {
   const { scrollTop, clientHeight, scrollHeight } = tasks.todo.container;
 
-  // console.log()
-  // console.log(scrollTop, clientHeight, scrollHeight);
-  // console.log(Math.ceil(scrollTop + clientHeight));
-
   // Check if user is at the bottom
   if (Math.ceil(scrollTop + clientHeight) >= scrollHeight) {
     console.log("Reached the bottom of the todo div! Fetching new task!");
     if (tasks.todo.total > tasks.todo.tasks.length) {
       fetchTasks("todo", tasks.todo.page+1)
     }
-    // const task = document.createElement("div")
-    // task.className = "task";
-    // task.innerText = "New task " + c++;
-    // todoTasks.appendChild(task);
   }
 })
 
+// To Do Tasks Events Section
 tasks.todo.container.addEventListener("dragstart", (e) => {
-  const data = {
+  draggingItem = {
     key: "todo",
     group: tasks.todo,
     task: tasks.todo.tasks.find(t => t.id === e.target.id)
   }
-  // e.dataTransfer.setData('application/json', JSON.stringify(data));
-  draggingItem = data
   e.dataTransfer.effectAllowed = 'move';
 })
+
 tasks.todo.container.addEventListener("dragover", (e) => {
   e.preventDefault(); // Necessary to allow dropping
   e.dataTransfer.dropEffect = 'move';
 })
+
 tasks.todo.container.addEventListener("drop", (e) => {
-  console.log("Stopped at todo");
-  // const data = JSON.parse(e.dataTransfer.getData('application/json'));
   const data = draggingItem
   draggingItem = undefined
   const draggedElement = document.getElementById(data.task.id);
@@ -131,27 +105,11 @@ tasks.todo.container.addEventListener("drop", (e) => {
   if (draggedElement.parentNode.contains(e.target) || draggedElement.parentNode === e.target) {
     console.log("Dragging to the same parent. Skipping...")
   } else {
-    // let dragTarget = e.target.parentNode;
-    // if (dragTarget.classList.contains("tasks")) {
-    //   dragTarget = dragTarget.parentNode;
-    // }
-
-    // targetTask = tasks[dragTarget.id];
     moveTask(data.task, data.group, tasks.todo);
-    // if (tasks.todo.total < SIZE) {
-    //   fetchTasks("todo", tasks.todo.page)
-    // }
-    // if (tasks[data.key].tasks.length < SIZE) {
-    //   fetchTasks(data.key, tasks[data.key].page)
-    // }
   }
-
-  //
-  // // Append the element to the drop zone
-  // event.target.appendChild(draggedElement);
 })
 
-
+// In Progress Tasks Events Section
 tasks.inProgress.container.addEventListener("scroll", (e) => {
   const { scrollTop, clientHeight, scrollHeight } = tasks.inProgress.container;
 
@@ -164,22 +122,20 @@ tasks.inProgress.container.addEventListener("scroll", (e) => {
 })
 
 tasks.inProgress.container.addEventListener("dragstart", (e) => {
-  const data = {
+  draggingItem = {
     key: "inProgress",
     group: tasks.inProgress,
     task: tasks.inProgress.tasks.find(t => t.id === e.target.id)
   }
-  // e.dataTransfer.setData('application/json', JSON.stringify(data));
-  draggingItem = data
   e.dataTransfer.effectAllowed = 'move';
 })
+
 tasks.inProgress.container.addEventListener("dragover", (e) => {
   e.preventDefault(); // Necessary to allow dropping
   e.dataTransfer.dropEffect = 'move';
 })
+
 tasks.inProgress.container.addEventListener("drop", (e) => {
-  console.log("Stopped at inProgress");
-  // const data = JSON.parse(e.dataTransfer.getData('application/json'));
   const data = draggingItem
   draggingItem = undefined
   const draggedElement = document.getElementById(data.task.id);
@@ -187,26 +143,11 @@ tasks.inProgress.container.addEventListener("drop", (e) => {
   if (draggedElement.parentNode.contains(e.target) || draggedElement.parentNode === e.target) {
     console.log("Dragging to the same parent. Skipping...")
   } else {
-    // let dragTarget = e.target.parentNode;
-    // if (dragTarget.classList.contains("tasks")) {
-    //   dragTarget = dragTarget.parentNode;
-    // }
-
-    // targetTask = tasks[dragTarget.id];
     moveTask(data.task, data.group, tasks.inProgress);
-    // if (tasks.inProgress.total < SIZE) {
-    //   fetchTasks("inProgress", tasks.inProgress.page)
-    // }
-    // if (tasks[data.key].tasks.length < SIZE) {
-    //   fetchTasks(data.key, tasks[data.key].page)
-    // }
   }
-
-  //
-  // // Append the element to the drop zone
-  // event.target.appendChild(draggedElement);
 })
 
+// To Do Tasks Events Section
 tasks.done.container.addEventListener("scroll", (e) => {
   const { scrollTop, clientHeight, scrollHeight } = tasks.done.container;
 
@@ -219,22 +160,20 @@ tasks.done.container.addEventListener("scroll", (e) => {
 })
 
 tasks.done.container.addEventListener("dragstart", (e) => {
-  const data = {
+  draggingItem = {
     key: "done",
     group: tasks.done,
     task: tasks.done.tasks.find(t => t.id === e.target.id)
   }
-  // e.dataTransfer.setData('application/json', JSON.stringify(data));
-  draggingItem = data
   e.dataTransfer.effectAllowed = 'move';
 })
+
 tasks.done.container.addEventListener("dragover", (e) => {
   e.preventDefault(); // Necessary to allow dropping
   e.dataTransfer.dropEffect = 'move';
 })
+
 tasks.done.container.addEventListener("drop", (e) => {
-  console.log("Stopped at done");
-  // const data = JSON.parse(e.dataTransfer.getData('application/json'));
   const data = draggingItem
   draggingItem = undefined
   const draggedElement = document.getElementById(data.task.id);
@@ -242,26 +181,11 @@ tasks.done.container.addEventListener("drop", (e) => {
   if (draggedElement.parentNode.contains(e.target) || draggedElement.parentNode === e.target) {
     console.log("Dragging to the same parent. Skipping...")
   } else {
-    // let dragTarget = e.target.parentNode;
-    // if (dragTarget.classList.contains("tasks")) {
-    //   dragTarget = dragTarget.parentNode;
-    // }
-
-    // targetTask = tasks[dragTarget.id];
     moveTask(data.task, data.group, tasks.done);
-    // if (tasks.done.total < SIZE) {
-    //   fetchTasks("done", tasks.done.page)
-    // }
-    // if (tasks[data.key].tasks.length < SIZE) {
-    //   fetchTasks(data.key, tasks[data.key].page)
-    // }
   }
-
-  //
-  // // Append the element to the drop zone
-  // event.target.appendChild(draggedElement);
 })
 
+// To Do Tasks Events Section
 tasks.rejected.container.addEventListener("scroll", (e) => {
   const { scrollTop, clientHeight, scrollHeight } = tasks.rejected.container;
 
@@ -274,22 +198,20 @@ tasks.rejected.container.addEventListener("scroll", (e) => {
 })
 
 tasks.rejected.container.addEventListener("dragstart", (e) => {
-  const data = {
+  draggingItem = {
     key: "rejected",
     group: tasks.rejected,
     task: tasks.rejected.tasks.find(t => t.id === e.target.id)
   }
-  // e.dataTransfer.setData('application/json', JSON.stringify(data));
-  draggingItem = data
   e.dataTransfer.effectAllowed = 'move';
 })
+
 tasks.rejected.container.addEventListener("dragover", (e) => {
   e.preventDefault(); // Necessary to allow dropping
   e.dataTransfer.dropEffect = 'move';
 })
+
 tasks.rejected.container.addEventListener("drop", (e) => {
-  console.log("Stopped at rejected");
-  // const data = JSON.parse(e.dataTransfer.getData('application/json'));
   const data = draggingItem
   draggingItem = undefined
   const draggedElement = document.getElementById(data.task.id);
@@ -297,36 +219,16 @@ tasks.rejected.container.addEventListener("drop", (e) => {
   if (draggedElement.parentNode.contains(e.target) || draggedElement.parentNode === e.target) {
     console.log("Dragging to the same parent. Skipping...")
   } else {
-    // let dragTarget = e.target.parentNode;
-    // if (dragTarget.classList.contains("tasks")) {
-    //   dragTarget = dragTarget.parentNode;
-    // }
-
-    // targetTask = tasks[dragTarget.id];
     moveTask(data.task, data.group, tasks.rejected);
-    // if (tasks.rejected.total < SIZE) {
-    //   fetchTasks("rejected", tasks.rejected.page)
-    // }
-    // if (tasks[data.key].tasks.length < SIZE) {
-    //   fetchTasks(data.key, tasks[data.key].page)
-    // }
   }
-
-  //
-  // // Append the element to the drop zone
-  // event.target.appendChild(draggedElement);
 })
 
-// fetchTasks("todo");
-// fetchTasks("inProgress");
-// fetchTasks("done");
-// fetchTasks("rejected");
+// Tickets section
 
 fetchTasks("todo", 0);
 fetchTasks("inProgress", 0);
 fetchTasks("done", 0);
 fetchTasks("rejected", 0);
-// fetchTasks("todo");
 
 function createLoadingElementForTask(task) {
   const loadingElement = document.createElement("div");
@@ -355,24 +257,13 @@ function moveTask(task, fromTaskGroup, toTaskGroup) {
     body: JSON.stringify(data)
   }).then(async response => {
     if (response.status === 200) {
-      // console.log(task)
       task = await response.json();
-      // console.log(task)
-
       const fromTasks = fromTaskGroup.tasks;
       const toTasks = toTaskGroup.tasks;
-      // console.log(fromTasks)
-      // console.log(fromTasks.findIndex(t => t.id === task.id))
       fromTasks.splice(fromTasks.findIndex(t => t.id === task.id), 1);
       toTasks.push(task);
 
-      // console.log(task)
-      // console.log(found)
-      // console.log(toTaskGroup)
-      // console.log(fromTaskGroup)
-
       toTaskGroup.tasks.sort((t1, t2) => {
-        // console.log(new Date(t1.updatedAt) - new Date(t2.updatedAt)) <-- ASC
         return new Date(t2.updatedAt) - new Date(t1.updatedAt);
       });
 
@@ -388,7 +279,7 @@ function moveTask(task, fromTaskGroup, toTaskGroup) {
 }
 
 function showToast(text) {
-  // alert(text)
+  // todo: implement toast
 }
 
 function fetchTasks(type, page, size=SIZE) {
@@ -398,7 +289,6 @@ function fetchTasks(type, page, size=SIZE) {
     task.loadingElement = loadingElement;
     task.container.appendChild(loadingElement);
 
-    // setTimeout(() => {
     fetch(`${window.APP_CONFIG.API_URL}/api/tasks?page=${page || task.page}&size=${size}&status=${task.status}`).then(res => {
       if (res.status === 200) {
         return res.json()
@@ -410,7 +300,6 @@ function fetchTasks(type, page, size=SIZE) {
       task.loadingElement.remove();
       task.container.appendChild(createNoTasksFoundMessage());
     })
-    // }, 1000)
   }
 }
 
@@ -428,7 +317,6 @@ function addTasks(task, data) {
   task.loadingElement = undefined;
 
   task.tasks.sort((t1, t2) => {
-        // console.log(new Date(t1.updatedAt) - new Date(t2.updatedAt)) <-- ASC
         return new Date(t2.updatedAt) - new Date(t1.updatedAt);
       });
 
@@ -436,7 +324,6 @@ function addTasks(task, data) {
 }
 
 function rerenderTasksFor(task) {
-  // console.log(task);
   const {container, tasks, color} = task;
 
   container.innerHTML = "";
@@ -457,7 +344,6 @@ function rerenderTasksFor(task) {
         <span>${task.id}</span>
     </div>
     `
-
     container.appendChild(taskDiv);
   })
 }
@@ -471,12 +357,10 @@ function fetchById(id) {
     })
 }
 
-
-
+// Ticket Details Section
 
 let editTicketModalBtn;
 let deleteTicketModalBtn;
-
 
 let selectedTicket = undefined;
 const ticketDetailsModal = document.querySelector(".ticket-details-modal");
@@ -531,11 +415,6 @@ function populateModal(ticket) {
 `;
   deleteTicketModalBtn.addEventListener("click", openDeleteTicketModal);
 
-  // editTicketModalBtn = document.getElementById("open-edit-ticket-modal-btn");
-  // editTicketFormCancelBtn.addEventListener("click", closeEditTicketModal);
-  // deleteTicketModalBtn = document.getElementById("open-delete-ticket-modal-btn");
-  // deleteTicketModalBtn.addEventListener("click", closeDeleteTicketModal);
-
   const actionButtons = document.createElement("div");
   actionButtons.classList.add("action-buttons");
 
@@ -543,16 +422,6 @@ function populateModal(ticket) {
   actionButtons.appendChild(deleteTicketModalBtn);
 
   ticketDetails.innerHTML = `
-<!--  <div class="action-buttons">-->
-<!--    <button id="open-edit-ticket-modal-btn">-->
-<!--        <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="#ffa600" viewBox="0 0 256 256"><path d="M227.31,73.37,182.63,28.68a16,16,0,0,0-22.63,0L36.69,152A15.86,15.86,0,0,0,32,163.31V208a16,16,0,0,0,16,16H92.69A15.86,15.86,0,0,0,104,219.31L227.31,96a16,16,0,0,0,0-22.63ZM51.31,160,136,75.31,152.69,92,68,176.68ZM48,179.31,76.69,208H48Zm48,25.38L79.31,188,164,103.31,180.69,120Zm96-96L147.31,64l24-24L216,84.68Z"></path></svg>-->
-<!--        Edit-->
-<!--    </button>-->
-<!--    <button id="open-delete-ticket-modal-btn">-->
-<!--        <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="#ff364e" viewBox="0 0 256 256"><path d="M216,48H176V40a24,24,0,0,0-24-24H104A24,24,0,0,0,80,40v8H40a8,8,0,0,0,0,16h8V208a16,16,0,0,0,16,16H192a16,16,0,0,0,16-16V64h8a8,8,0,0,0,0-16ZM96,40a8,8,0,0,1,8-8h48a8,8,0,0,1,8,8v8H96Zm96,168H64V64H192ZM112,104v64a8,8,0,0,1-16,0V104a8,8,0,0,1,16,0Zm48,0v64a8,8,0,0,1-16,0V104a8,8,0,0,1,16,0Z"></path></svg>-->
-<!--        Delete-->
-<!--    </button>-->
-<!--  </div>-->
   <h4>${ticket.id}</h4>
   <h1>${ticket.title}</h1>
   `;
@@ -561,8 +430,7 @@ function populateModal(ticket) {
   ticketDetails.appendChild(date);
 }
 
-
-
+// Ticket Creation Section
 
 const createTicketModal = document.querySelector(".ticket-add-modal");
 const createTicketForm = document.getElementById("ticketAddForm");
@@ -642,10 +510,7 @@ function closeCreateTicketModal() {
   }, 200);
 }
 
-
-
-
-
+// Ticket Editing Section
 
 const editTicketModal = document.querySelector(".ticket-details-edit-modal");
 const editTicketForm = document.getElementById("ticketDetailsEditForm");
@@ -754,13 +619,7 @@ function closeEditTicketModal() {
   }, 200);
 }
 
-
-
-
-
-
-
-
+// Ticket Deletion Section
 
 const deleteTicketModal = document.querySelector(".ticket-delete-modal");
 const deleteTicketForm = document.getElementById("ticketDeleteForm");

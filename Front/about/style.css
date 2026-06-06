@@ -43,7 +43,6 @@ body {
     gap: 10px;
     height: 48px;
     width: 100%;
-    /*margin-bottom: 10px;*/
 }
 
 #app-sidebar-header svg {
@@ -110,6 +109,11 @@ body {
 }
 
 #app-content {
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
     background-image: url(https://art.ngfiles.com/images/806000/806350_thealmightybanana_random-gif.gif?f1548969435);
     background-repeat: no-repeat;
     background-attachment: fixed;
@@ -134,30 +138,6 @@ body {
     stroke-width: 20px;
 }
 
-#app-content {
-    color: white;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-#cards-section {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 10px;
-}
-
-#cards {
-    align-self: start;
-    margin-top: 80px;
-}
-
-#cards h1 {
-    font-size: 40pt;
-    margin: 10px 5px 20px;
-    animation: 600ms appear;
-}
-
 #cover {
     width: 100vw;
     height: 100vh;
@@ -166,44 +146,6 @@ body {
     align-items: center;
     background: rgba(104, 104, 104, 0.05);
     backdrop-filter: blur(10px);
-}
-
-.card {
-    background-color: rgba(255, 255, 255, 0.9);
-    color: black;
-    border-radius: 20px;
-    padding: 20px 20px;
-    display: flex;
-    flex-direction: row;
-    gap: 15px;
-    animation: 600ms appear;
-}
-
-.card h2 {
-    margin: 0;
-}
-
-.card p {
-    margin: 5px 0;
-}
-
-.card-icon {
-    width: 45px;
-    height: 45px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 100%;
-    flex-shrink: 0;
-}
-
-.card-content {
-    width: 100%;
-}
-
-@keyframes appear {
-    0% {opacity: 0;}
-    100% {opacity: 1;}
 }
 
 #author-info {
@@ -247,38 +189,7 @@ body {
     overflow-y: auto;
 }
 
-/*#author-info .header {*/
-/*    margin-top: 100px;*/
-/*    text-align: center;*/
-/*}*/
-
-/*#author-info img {*/
-/*    width: 250px;*/
-/*    height: 250px;*/
-/*    border-radius: 100%;*/
-/*    position: absolute;*/
-/*    top: -90px;*/
-/*    left: 50%;*/
-/*    transform: translateX(-50%);*/
-/*}*/
-
-/*#author-info {*/
-/*    width: 50vw;*/
-/*    position: absolute;*/
-/*    height: 50vh;*/
-/*    padding-top: 100px;*/
-/*    margin-bottom: 100px;*/
-/*    background-color: white;*/
-/*    overflow: visible;*/
-/*    color: black;*/
-/*    border-radius: 250px 250px 20px 20px;*/
-/*}*/
-
-/*#author-info .content {*/
-/*    height: 100%;*/
-/*    overflow-y: auto;*/
-/*}*/
-
-/*#author-info .content h1, h2 {*/
-/*    text-align: center;*/
-/*}*/
+@keyframes appear {
+    0% {opacity: 0;}
+    100% {opacity: 1;}
+}

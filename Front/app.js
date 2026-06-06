@@ -1,3 +1,30 @@
+// General Section
+
+const sidebarCloseBtn = document.getElementById("sidebar-close-btn");
+const layout = document.getElementById("app-layout");
+const menuItems = document.querySelectorAll(".menu-item");
+const cover = document.getElementById("cover");
+
+const header = document.createElement("h1");
+header.id = "greeting";
+header.innerText = "Welcome!"
+
+menuItems.forEach((menuItem) => {
+  menuItem.addEventListener("click", () => {
+    window.location.href = menuItem.dataset.href;
+  });
+})
+
+sidebarCloseBtn.addEventListener("click", () => {
+  if (layout.classList.contains("sidebar-hidden")) {
+    layout.classList.remove("sidebar-hidden");
+  } else {
+    layout.classList.add("sidebar-hidden");
+  }
+})
+
+// Statistics section
+
 const CARDS_DATA = {
   totalTasks: {
     icon: `<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="black" viewBox="0 0 256 256"><path d="M230.91,172A8,8,0,0,1,228,182.91l-96,56a8,8,0,0,1-8.06,0l-96-56A8,8,0,0,1,36,169.09l92,53.65,92-53.65A8,8,0,0,1,230.91,172ZM220,121.09l-92,53.65L36,121.09A8,8,0,0,0,28,134.91l96,56a8,8,0,0,0,8.06,0l96-56A8,8,0,1,0,220,121.09ZM24,80a8,8,0,0,1,4-6.91l96-56a8,8,0,0,1,8.06,0l96,56a8,8,0,0,1,0,13.82l-96,56a8,8,0,0,1-8.06,0l-96-56A8,8,0,0,1,24,80Zm23.88,0L128,126.74,208.12,80,128,33.26Z"></path></svg>`,
@@ -31,45 +58,6 @@ const CARDS_DATA = {
   }
 }
 
-
-const sidebarCloseBtn = document.getElementById("sidebar-close-btn");
-const layout = document.getElementById("app-layout");
-const menuItems = document.querySelectorAll(".menu-item");
-const content = document.getElementById("app-content");
-
-content.style.backgroundImage = `url(https://i.pinimg.com/originals/44/c7/c1/44c7c1f3fbd68b2151c37af5f08198f1.gif)`;
-content.style.backgroundRepeat = "no-repeat";
-content.style.backgroundAttachment = "fixed";
-content.style.backgroundSize = "100% 100%";
-content.style.backgroundSize = "100% 100%";
-
-const cover = document.createElement("div");
-cover.id = "cover";
-content.innerHTML = "";
-content.append(cover);
-
-const header = document.createElement("h1");
-header.id = "greeting";
-header.innerText = "Welcome!"
-
-menuItems.forEach((menuItem) => {
-  menuItem.addEventListener("click", () => {
-    window.location.href = menuItem.dataset.href;
-  });
-})
-
-sidebarCloseBtn.addEventListener("click", () => {
-  if (layout.classList.contains("sidebar-hidden")) {
-    layout.classList.remove("sidebar-hidden");
-  } else {
-    layout.classList.add("sidebar-hidden");
-  }
-})
-
-
-
-
-
 let statistics = {};
 
 fetchStatistics();
@@ -86,7 +74,6 @@ function fetchStatistics() {
 
 function setStatistics(data) {
   statistics = data;
-  // setTimeout(() => rerenderStatistics(), 5000)
   rerenderStatistics();
 }
 
@@ -100,7 +87,7 @@ function rerenderStatistics() {
 
   const entries = Object.entries(statistics)
   entries.filter(k => k[0] !== "totalTasks")
-    .forEach(([key, value], index) => {
+    .forEach(([key, value]) => {
       const cardData = CARDS_DATA[key];
       cardsSection.append(createStatCard(`${cardData.title}: ${value}`, cardData.description, cardData.icon, cardData.iconBg))
     })
@@ -108,7 +95,6 @@ function rerenderStatistics() {
   total.style.gridColumn = "1 / span 2";
   cardsSection.append(total);
 
-  // cover.innerHTML = cardsSection.outerHTML;
   cards.append(cardsSection);
   cover.append(cards);
 }
@@ -128,4 +114,3 @@ function createStatCard(title, description, icon, color, delay=0) {
   `;
   return card;
 }
-

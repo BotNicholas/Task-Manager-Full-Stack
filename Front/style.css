@@ -43,7 +43,6 @@ body {
     gap: 10px;
     height: 48px;
     width: 100%;
-    /*margin-bottom: 10px;*/
 }
 
 #app-sidebar-header svg {
@@ -109,10 +108,6 @@ body {
     text-wrap: nowrap;
 }
 
-#app-content {
-    background-color: #232329;
-}
-
 #sidebar-close-btn {
     margin-top: 2px;
     background-color: transparent;
@@ -136,6 +131,10 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
+    background-image: url(https://i.pinimg.com/originals/44/c7/c1/44c7c1f3fbd68b2151c37af5f08198f1.gif);
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: 100% 100%;
 }
 
 #cards-section {

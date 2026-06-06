@@ -9,15 +9,12 @@ import org.botnicholas.projects.taskmanager.exceptions.NotFoundException;
 import org.botnicholas.projects.taskmanager.mappings.TasksMapper;
 import org.botnicholas.projects.taskmanager.repositories.TasksRepository;
 import org.botnicholas.projects.taskmanager.repositories.entities.TaskEntity;
-import org.botnicholas.projects.taskmanager.repositories.entities.projections.TaskStats;
 import org.botnicholas.projects.taskmanager.repositories.specifications.TaskSpecification;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
-import java.time.Instant;
-import java.util.List;
 import java.util.UUID;
 
 import static org.botnicholas.projects.taskmanager.constants.ErrorConstants.Templates.NOT_FOUND_BY_ID_TEMPLATE;
