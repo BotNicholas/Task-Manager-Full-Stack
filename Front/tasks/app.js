@@ -405,6 +405,7 @@ function fetchById(id) {
 
 let editTicketModalBtn;
 let deleteTicketModalBtn;
+let mouseDownOnBackground = false;
 
 let selectedTicket = undefined;
 const ticketDetailsModal = document.querySelector(".ticket-details-modal");
@@ -414,8 +415,16 @@ ticketDetails.addEventListener("click", (e) => {
   e.stopPropagation();
 })
 
-ticketDetailsModal.addEventListener("click", (e) => {
-  closeModal();
+ticketDetailsModal.addEventListener("mousedown", (e) => {
+  mouseDownOnBackground = e.target === ticketDetailsModal;
+})
+
+ticketDetailsModal.addEventListener("mouseup", (e) => {
+  if (mouseDownOnBackground && e.target === ticketDetailsModal) {
+    closeModal();
+  }
+
+  mouseDownOnBackground = false;
 })
 
 function openModal(ticket) {
@@ -433,7 +442,7 @@ function closeModal() {
   setTimeout(() => {
     ticketDetails.innerHTML = "";
     ticketDetailsModal.classList.add("hidden");
-  }, 200);
+  }, 150);
 }
 
 function populateModal(ticket) {
@@ -536,9 +545,17 @@ createTicketForm.addEventListener("click", (e) => {
   e.stopPropagation();
 })
 
-createTicketModal.addEventListener("click", (e) => {
-  createTicketForm.reset();
-  closeCreateTicketModal();
+createTicketModal.addEventListener("mousedown", (e) => {
+  mouseDownOnBackground = e.target === createTicketModal;
+})
+
+createTicketModal.addEventListener("mouseup", (e) => {
+  if (mouseDownOnBackground && e.target === createTicketModal) {
+    createTicketForm.reset();
+    closeCreateTicketModal();
+  }
+
+  mouseDownOnBackground = false;
 })
 
 function openCreateTicketModal() {
@@ -552,7 +569,7 @@ function closeCreateTicketModal() {
   createTicketModal.style.animation = "200ms disappear";
   setTimeout(() => {
     createTicketModal.classList.add("hidden");
-  }, 200);
+  }, 150);
 }
 
 // Ticket Editing Section
@@ -643,9 +660,17 @@ function editTicket(ticket, formData) {
   })
 }
 
-editTicketModal.addEventListener("click", (e) => {
-  editTicketForm.reset();
-  closeEditTicketModal();
+editTicketModal.addEventListener("mousedown", (e) => {
+  mouseDownOnBackground = e.target === editTicketModal;
+})
+
+editTicketModal.addEventListener("mouseup", (e) => {
+  if (mouseDownOnBackground && e.target === editTicketModal) {
+    editTicketForm.reset();
+    closeEditTicketModal();
+  }
+
+  mouseDownOnBackground = false;
 })
 
 function openEditTicketModal() {
@@ -662,7 +687,7 @@ function closeEditTicketModal() {
   editTicketModal.style.animation = "200ms disappear";
   setTimeout(() => {
     editTicketModal.classList.add("hidden");
-  }, 200);
+  }, 150);
 }
 
 // Ticket Deletion Section
@@ -706,8 +731,16 @@ function deleteTicket(ticket) {
   })
 }
 
-deleteTicketModal.addEventListener("click", (e) => {
-  closeDeleteTicketModal();
+deleteTicketModal.addEventListener("mousedown", (e) => {
+  mouseDownOnBackground = e.target === deleteTicketModal;
+})
+
+deleteTicketModal.addEventListener("mouseup", (e) => {
+  if (mouseDownOnBackground && e.target === deleteTicketModal) {
+    closeDeleteTicketModal();
+  }
+
+  mouseDownOnBackground = false;
 })
 
 function openDeleteTicketModal() {
@@ -723,5 +756,5 @@ function closeDeleteTicketModal() {
   deleteTicketModal.style.animation = "200ms disappear";
   setTimeout(() => {
     deleteTicketModal.classList.add("hidden");
-  }, 200);
+  }, 150);
 }

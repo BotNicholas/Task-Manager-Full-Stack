@@ -74,6 +74,7 @@ body {
     padding: 0 10px;
     color: white;
     cursor: pointer;
+    white-space: nowrap;
 }
 
 .menu-item.active {
@@ -295,6 +296,7 @@ body {
     max-height: 50vh;
     height: min-content;
     overflow-y: scroll;
+    white-space: pre-wrap;
 }
 
 .ticket-details-modal .ticket-details #createdAt {
@@ -363,12 +365,11 @@ body {
     background-color: rgba(255, 255, 255, 0.9);
     border-radius: 20px;
     color: black;
-    padding: 20px 20px 100px;
+    padding: 20px 20px 30px;
     overflow: hidden;
     overflow-y: scroll;
     position: relative;
     display: grid;
-    grid-template-rows: 1fr 3fr 1fr;
 }
 
 .ticket-add-modal #ticketAddForm h2 {
@@ -520,7 +521,7 @@ body {
     overflow-y: scroll;
     border-radius: 20px;
     color: black;
-    padding: 20px 20px 100px;
+    padding: 20px 20px 30px;
 }
 
 .ticket-details-edit-modal #ticketDetailsEditForm h2 {
@@ -636,13 +637,13 @@ body {
 
 .ticket-delete-modal #ticketDeleteForm {
     width: max-content;
-    max-height: 14vh;
+    max-height: 17vh;
     min-height: 10vh;
     height: max-content;
     background-color: rgba(255, 255, 255, 0.9);
     border-radius: 20px;
     color: black;
-    padding: 20px 20px 100px;
+    padding: 20px 20px 30px;
     overflow: hidden;
 }
 
@@ -725,4 +726,17 @@ body {
 @keyframes disappear {
     0% {opacity: 1;}
     100% {opacity: 0;}
+}
+
+.scroll-hidden {
+    /* For Firefox */
+    scrollbar-width: none;
+
+    /* For Internet Explorer and Edge */
+    -ms-overflow-style: none;
+}
+
+/* For Chrome, Safari, and Opera */
+.scroll-hidden::-webkit-scrollbar {
+    display: none;
 }

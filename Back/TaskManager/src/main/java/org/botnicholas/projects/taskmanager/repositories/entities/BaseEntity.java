@@ -20,12 +20,10 @@ public abstract class BaseEntity {
     private UUID id;
 
     @Column(name = "created_at")
-    @Convert(converter = InstantToStringConverter.class)
     @Builder.Default
     private Instant createdAt = Instant.now();
 
     @Column(name = "updated_at")
-    @Convert(converter = InstantToStringConverter.class)
     @Builder.Default
     private Instant updatedAt = Instant.now();
 }

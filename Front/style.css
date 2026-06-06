@@ -73,6 +73,7 @@ body {
     padding: 0 10px;
     color: white;
     cursor: pointer;
+    white-space: nowrap;
 }
 
 .menu-item.active {
