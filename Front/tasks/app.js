@@ -225,6 +225,34 @@ tasks.rejected.container.addEventListener("drop", (e) => {
 
 // Tickets section
 
+const notificationQueue = {
+  queue: [],
+  isRunning: false,
+  add(task) {
+    console.log(this.queue);
+    console.log(this.isRunning);
+    this.queue.push(task);
+    this.run();
+  },
+  async run() {
+    if (this.isRunning) return;
+
+    this.isRunning = true;
+
+    while (this.queue.length > 0) {
+      const task = this.queue.shift();
+
+      try {
+        await task();
+      } catch (error) {
+        console.error("Task failed:", error);
+      }
+    }
+
+    this.isRunning = false;
+  }
+}
+
 fetchTasks("todo", 0);
 fetchTasks("inProgress", 0);
 fetchTasks("done", 0);
@@ -273,13 +301,29 @@ function moveTask(task, fromTaskGroup, toTaskGroup) {
       const key = statusMap[task.status]
       fetchTasks(key, tasks[key].page)
 
-      showToast(`Task ${task.id} moved to ${toTaskGroup.status}.`);
+      notificationQueue.add(() => showToast(`Task ${task.id} moved to ${toTaskGroup.status}.`));
     }
   })
 }
 
+const toast = document.querySelector(".toast");
+
 function showToast(text) {
-  // todo: implement toast
+  return new Promise(resolve => {
+    toast.innerText = "";
+    toast.style.animation = "none";
+
+    void toast.offsetWidth;
+
+    toast.innerText = text;
+    toast.style.animation = "toast-appear 4400ms";
+
+    setTimeout(() => {
+      toast.innerText = "";
+      toast.style.animation = "none";
+      resolve();
+    }, 4400);
+  });
 }
 
 function fetchTasks(type, page, size=SIZE) {
