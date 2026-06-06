@@ -520,6 +520,7 @@ function createTicket(formData) {
     }
   }).then(data => {
     fetchTasks(formData.status, 0)
+    notificationQueue.add(() => showToast(`New task was successfully created in ${data.status}.`));
   }).catch(err => {
     console.log(err);
   }).finally(() => {
@@ -632,6 +633,7 @@ function editTicket(ticket, formData) {
   }).then(data => {
     populateModal(data);
     fetchTasks(statusMap[data.status], 0)
+    notificationQueue.add(() => showToast(`Task ${data.id} was successfully updated.`));
   }).catch(err => {
     console.log(err);
   }).finally(() => {
@@ -693,6 +695,7 @@ function deleteTicket(ticket) {
       const storedTickets = tasks[statusMap[ticket.status]].tasks;
       storedTickets.splice(storedTickets.findIndex(t => t.id === ticket.id), 1);
       fetchTasks(statusMap[ticket.status], 0);
+      notificationQueue.add(() => showToast(`Task ${ticket.id} was successfully deleted.`));
     }
   }).catch(err => {
     console.log(err);
